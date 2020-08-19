@@ -3,6 +3,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const morgan = require("morgan");
+const { logIn, createUser } = require("./handlers");
 
 const PORT = 4000;
 
@@ -29,6 +30,7 @@ app
   .use(express.urlencoded({ extended: false }))
   .use("/", express.static(__dirname + "/"))
 
-  //.get('', )
+  .post("/login", logIn)
+  .post("/users", createUser)
 
   .listen(PORT, () => console.info(`Listening on port ${PORT}`));
