@@ -1,5 +1,5 @@
 {
-  "proxy": "5678",
+  "proxy": "http://localhost:4000",
   "name": "finalproject",
   "version": "0.1.0",
   "private": true,
@@ -9,7 +9,8 @@
     "@testing-library/user-event": "^7.1.2",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
-    "react-scripts": "3.4.3"
+    "react-scripts": "3.4.3",
+    "styled-components": "^5.1.1"
   },
   "scripts": {
     "start": "react-scripts start",
