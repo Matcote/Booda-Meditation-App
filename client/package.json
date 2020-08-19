@@ -1,4 +1,5 @@
 {
+  "proxy": "5678",
   "name": "finalproject",
   "version": "0.1.0",
   "private": true,
