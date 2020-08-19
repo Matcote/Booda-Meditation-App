@@ -1,12 +1,21 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import App from "./App";
-import GlobalStyles from "./GlobalStyles";
+import { Provider } from "react-redux";
+import App from "./components/App";
+import GlobalStyles from "./components/GlobalStyles";
+import MobileWrapper from "mobile-viewer-component/dist";
+import configureStore from "./store";
+
+const store = configureStore();
 
 ReactDOM.render(
   <React.StrictMode>
     <GlobalStyles />
-    <App />
+    <MobileWrapper background="weave">
+      <Provider store={store}>
+        <App />
+      </Provider>
+    </MobileWrapper>
   </React.StrictMode>,
   document.getElementById("root")
 );
