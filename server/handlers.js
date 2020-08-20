@@ -12,7 +12,6 @@ const options = {
 //HANDLERS
 
 const logIn = async (req, res) => {
-  console.log(req.body);
   const _id = req.body.email;
   const client = await MongoClient(MONGO_URI, options);
   try {

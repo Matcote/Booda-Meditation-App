@@ -21,7 +21,7 @@ export default function userReducer(state = initialState, action) {
     case "LOG_IN_ERROR": {
       return {
         ...state,
-        status: "idle",
+        status: "LOGIN ERROR",
       };
     }
 

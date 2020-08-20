@@ -1,17 +1,13 @@
 import React from "react";
 import Login from "./Login";
-import { useSelector } from "react-redux";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Feed from "./Feed";
 import Profile from "./Profile";
 import Timer from "./Timer";
-import Navbar from "./Navbar";
+import SignUp from "./SignUp";
 
 function App() {
-  const user = useSelector((state) => state.user.user);
-  return user === null ? (
-    <Login />
-  ) : (
+  return (
     <Router>
       <Switch>
         <Route exact path="/">
@@ -23,8 +19,13 @@ function App() {
         <Route exact path="/profile">
           <Profile />
         </Route>
+        <Route exact path="/login">
+          <Login />
+        </Route>
+        <Route exact path="/signup">
+          <SignUp />
+        </Route>
       </Switch>
-      <Navbar />
     </Router>
   );
 }
