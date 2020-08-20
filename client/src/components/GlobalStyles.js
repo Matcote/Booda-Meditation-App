@@ -21,10 +21,9 @@ time, mark, audio, video {
 	font: inherit;
 	vertical-align: baseline;
 	box-sizing: border-box;
+	font-family: 'Alata', sans-serif;
+	color: #0e172c;
 }
-::-webkit-scrollbar {
-    display: none;
-  }
 /* HTML5 display-role reset for older browsers */
 article, aside, details, figcaption, figure, 
 footer, header, hgroup, menu, nav, section {
