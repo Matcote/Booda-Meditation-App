@@ -98,6 +98,7 @@ const Button = styled.button`
   align-items: center;
   box-shadow: 1px 1px 5px 0px rgba(0, 0, 0, 0.75);
   outline: none;
+  cursor: pointer;
 `;
 const Footer = styled.div`
   margin-top: auto;
