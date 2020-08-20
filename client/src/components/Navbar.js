@@ -1,8 +1,13 @@
 import React from "react";
 import styled from "styled-components";
+import { NavLink } from "react-router-dom";
 
 const Navbar = () => {
-  return <Wrapper>Nav</Wrapper>;
+  return (
+    <Wrapper>
+      <NavLink to="/"></NavLink>
+    </Wrapper>
+  );
 };
 const Wrapper = styled.div`
   position: absolute;

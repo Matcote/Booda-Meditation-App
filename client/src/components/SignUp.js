@@ -44,33 +44,80 @@ const SignUp = () => {
   };
   return (
     <Wrapper>
-      <form onSubmit={handleSignUp}>
+      <Header>Let's get started</Header>
+      <Input>
+        {" "}
         <input type="text" placeholder="Name" ref={nameRef} required />
+      </Input>
+      <Input>
+        {" "}
         <input type="email" placeholder="Email" ref={emailRef} required />
+      </Input>
+      <Input>
         <input
           type="password"
           placeholder="Password"
           ref={passwordRef}
           required
         />
+      </Input>
+      <Input>
         <input
           type="password"
           placeholder="Confirm password"
           ref={confirmPasswordRef}
           required
         />
-        <button type="submit">Continue</button>
-      </form>
+      </Input>
+
+      <Button onClick={handleSignUp}>Continue</Button>
     </Wrapper>
   );
 };
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  background-color: #d9d4e7;
+  align-items: center;
+  background-color: #f9f8fc;
   height: 100%;
   width: 100%;
+  padding: 15px 30px;
+`;
+
+const Button = styled.button`
+  color: white;
+  background-color: #a786df;
+  border: none;
+  width: 100%;
+  height: 50px;
+  margin-top: 20px;
+  font-size: large;
+  text-decoration: none;
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 1px 1px 5px 0px rgba(0, 0, 0, 0.75);
+  outline: none;
+`;
+const Input = styled.div`
+  width: 95%;
+  margin: 10px 0;
+  border-bottom: 3px solid #eee;
+  input {
+    border: none;
+    width: auto;
+    margin-left: 10px;
+    font-size: large;
+    padding: 8px;
+    outline: none;
+    background-color: inherit !important;
+  }
+`;
+const Header = styled.div`
+  margin-bottom: 130px;
+  margin-top: 8px;
+  font-size: large;
 `;
 
 export default SignUp;
