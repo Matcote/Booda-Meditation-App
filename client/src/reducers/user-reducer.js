@@ -5,10 +5,23 @@ const initialState = {
 
 export default function userReducer(state = initialState, action) {
   switch (action.type) {
-    case "": {
+    case "START_LOG_IN": {
       return {
         ...state,
         status: "loading",
+      };
+    }
+    case "LOG_IN": {
+      return {
+        ...state,
+        status: "idle",
+        user: action.user,
+      };
+    }
+    case "LOG_IN_ERROR": {
+      return {
+        ...state,
+        status: "idle",
       };
     }
 
