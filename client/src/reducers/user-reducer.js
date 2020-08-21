@@ -1,6 +1,11 @@
 const initialState = {
   status: "idle",
-  user: null,
+  user: {
+    _id: "matthewcotesipod@gmail.com",
+    name: "Matthew Cote",
+    email: "matthewcotesipod@gmail.com",
+    password: "ironman",
+  },
 };
 
 export default function userReducer(state = initialState, action) {

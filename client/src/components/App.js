@@ -11,10 +11,10 @@ function App() {
     <Router>
       <Switch>
         <Route exact path="/">
-          <Timer />
-        </Route>
-        <Route exact path="/feed">
           <Feed />
+        </Route>
+        <Route exact path="/timer">
+          <Timer />
         </Route>
         <Route exact path="/profile">
           <Profile />
