@@ -21,7 +21,7 @@ const Navbar = () => {
 const Wrapper = styled.div`
   position: absolute;
   bottom: 100px;
-  height: 100px;
+  height: 80px;
   width: 390px;
   background-color: #a786df;
   color: white;

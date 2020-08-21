@@ -49,7 +49,33 @@ const createUser = async (req, res) => {
   client.close();
 };
 
+const addMeditation = async (req, res) => {
+  const _id = req.body._id;
+  const client = await MongoClient(MONGO_URI, options);
+  try {
+    await client.connect();
+    const db = client.db("meditation_app");
+    const newValues = {
+      $push: {
+        meditations: req.body.meditation,
+      },
+    };
+    const r = await db.collection("users").updateOne({ _id }, newValues);
+    assert.equal(1, r.matchedCount);
+    assert.equal(1, r.modifiedCount);
+    res.status(200).json({ status: 200, data: { ...req.body } });
+  } catch (err) {
+    console.log(err.stack);
+    res
+      .status(500)
+      .json({ status: 500, data: { ...req.body }, message: err.message });
+  }
+
+  client.close();
+};
+
 module.exports = {
   createUser,
   logIn,
+  addMeditation,
 };

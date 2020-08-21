@@ -3,7 +3,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const morgan = require("morgan");
-const { logIn, createUser } = require("./handlers");
+const { logIn, createUser, addMeditation } = require("./handlers");
 
 const PORT = 4000;
 
@@ -32,5 +32,6 @@ app
 
   .post("/login", logIn)
   .post("/users", createUser)
+  .put("/meditate", addMeditation)
 
   .listen(PORT, () => console.info(`Listening on port ${PORT}`));
