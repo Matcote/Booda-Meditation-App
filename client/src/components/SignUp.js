@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { useDispatch } from "react-redux";
 import { logIn, logInError } from "../actions";
 import { useHistory, Link } from "react-router-dom";
-import { IoIosWarning } from "react-icons/io";
+import { IoIosWarning, IoMdArrowRoundBack } from "react-icons/io";
 
 const SignUp = () => {
   const history = useHistory();
@@ -50,6 +50,9 @@ const SignUp = () => {
   return (
     <>
       <Wrapper>
+        <Link to="/login">
+          <IoMdArrowRoundBack size={"2em"} />
+        </Link>
         <Header>Let's get started</Header>
         <Input>
           {" "}
@@ -96,6 +99,10 @@ const Wrapper = styled.div`
   height: 100%;
   width: 100%;
   padding: 15px 30px;
+  a {
+    position: absolute;
+    left: 15px;
+  }
 `;
 
 const Button = styled.button`
