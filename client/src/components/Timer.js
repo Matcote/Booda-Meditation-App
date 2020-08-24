@@ -72,7 +72,6 @@ const Timer = () => {
       setTime(length);
       setColor("grey");
       setModal("flex");
-      console.log(length);
     }
     // eslint-disable-next-line
   }, [time, mediInterval]);
