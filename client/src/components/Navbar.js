@@ -20,9 +20,9 @@ const Navbar = () => {
 };
 const Wrapper = styled.div`
   position: absolute;
-  bottom: 100px;
-  height: 80px;
-  width: 390px;
+  bottom: 0px;
+  height: 75px;
+  width: 100%;
   background-color: #a786df;
   color: white;
   overflow: hidden;

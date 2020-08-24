@@ -3,7 +3,7 @@ import Login from "./Login";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Feed from "./Feed";
 import Profile from "./Profile";
-import Timer from "./Timer";
+import TimerPage from "./TimerPage";
 import SignUp from "./SignUp";
 
 function App() {
@@ -14,7 +14,7 @@ function App() {
           <Feed />
         </Route>
         <Route exact path="/timer">
-          <Timer />
+          <TimerPage />
         </Route>
         <Route exact path="/profile">
           <Profile />
