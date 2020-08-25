@@ -1,16 +1,16 @@
-const initialState = {
-  status: "idle",
-  user: null,
-};
 // const initialState = {
 //   status: "idle",
-//   user: {
-//     _id: "matthewcotesipod@gmail.com",
-//     name: "Matthew Cote",
-//     email: "matthewcotesipod@gmail.com",
-//     password: "ironman",
-//   },
+//   user: null,
 // };
+const initialState = {
+  status: "idle",
+  user: {
+    _id: "matthewcotesipod@gmail.com",
+    name: "Matthew Cote",
+    email: "matthewcotesipod@gmail.com",
+    password: "ironman",
+  },
+};
 
 export default function userReducer(state = initialState, action) {
   switch (action.type) {

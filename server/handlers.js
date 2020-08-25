@@ -74,8 +74,44 @@ const addMeditation = async (req, res) => {
   client.close();
 };
 
+const getFeed = async (req, res) => {
+  const _id = req.params._id;
+  const client = await MongoClient(MONGO_URI, options);
+  try {
+    await client.connect();
+    const db = client.db("meditation_app");
+    const r = await db
+      .collection("users")
+      .findOne({ _id }, async (err, result) => {
+        if (result) {
+          const accounts = result.follows;
+
+          const posts = await db
+            .collection("meditations")
+            .find({ user: { $in: accounts } })
+            .toArray();
+          const sortedPosts = posts.sort(
+            (a, b) => new Date(b.date) - new Date(a.date)
+          );
+          res.status(200).json({
+            status: 200,
+            _id,
+            data: sortedPosts,
+          });
+        } else {
+          res.status(404).json({ status: 404, _id, data: "Not Found" });
+        }
+        client.close();
+      });
+  } catch (err) {
+    console.log(err.stack);
+    res.status(500).json({ status: 500, data: req.body, message: err.message });
+  }
+};
+
 module.exports = {
   createUser,
   logIn,
   addMeditation,
+  getFeed,
 };

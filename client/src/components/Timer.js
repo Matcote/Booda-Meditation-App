@@ -20,7 +20,6 @@ const Timer = () => {
     }
     return `${minutes}:${seconds}`;
   };
-
   const startTimer = () => {
     setColor("#a786df");
     setLength(time);
@@ -32,6 +31,8 @@ const Timer = () => {
   };
 
   const handleSubmit = () => {
+    const date = new Date();
+    console.log(date);
     setModal("none");
     fetch("/meditate", {
       method: "put",
@@ -40,7 +41,11 @@ const Timer = () => {
       },
       body: JSON.stringify({
         _id: _id,
-        meditation: { time: length, comment: commentRef.current.value },
+        meditation: {
+          time: length,
+          comment: commentRef.current.value,
+          date: date,
+        },
       }),
     }).then(() => {
       //commentRef.current.value = "";

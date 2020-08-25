@@ -3,7 +3,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const morgan = require("morgan");
-const { logIn, createUser, addMeditation } = require("./handlers");
+const { logIn, createUser, addMeditation, getFeed } = require("./handlers");
 
 const PORT = 4000;
 
@@ -30,6 +30,7 @@ app
   .use(express.urlencoded({ extended: false }))
   .use("/", express.static(__dirname + "/"))
 
+  .get("/feed/:_id", getFeed)
   .post("/login", logIn)
   .post("/users", createUser)
   .put("/meditate", addMeditation)
