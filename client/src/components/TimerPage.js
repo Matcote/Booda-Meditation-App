@@ -31,8 +31,11 @@ const Wrapper = styled.div`
 `;
 const Header = styled.div`
   margin-bottom: 100px;
-  margin-top: 12px;
+  padding: 12px 0;
   font-size: x-large;
+  width: 90%;
+  text-align: center;
+  border-bottom: 2px solid #eee;
 `;
 
 export default TimerPage;

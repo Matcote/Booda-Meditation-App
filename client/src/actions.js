@@ -9,14 +9,13 @@ export const logInError = () => ({
   type: "LOG_IN_ERROR",
 });
 
-//
-// export const startSignUp = () => ({
-//   type: "START_SIGN_UP",
-// });
-// export const signUp = (user) => ({
-//   type: "SIGN_UP",
-//   user,
-// });
-// export const signUpError = () => ({
-//   type: "SIGN_UP_ERROR",
-// });
+export const requestFeed = () => ({
+  type: "REQUEST_FEED",
+});
+export const receiveFeed = (posts) => ({
+  type: "RECEIVE_FEED",
+  posts,
+});
+export const receiveFeedError = () => ({
+  type: "RECEIVE_FEED_ERROR",
+});
