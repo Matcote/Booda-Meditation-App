@@ -32,7 +32,6 @@ const Timer = () => {
 
   const handleSubmit = () => {
     const date = new Date();
-    console.log(date);
     setModal("none");
     fetch("/meditate", {
       method: "put",

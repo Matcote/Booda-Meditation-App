@@ -19,3 +19,18 @@ export const receiveFeed = (posts) => ({
 export const receiveFeedError = () => ({
   type: "RECEIVE_FEED_ERROR",
 });
+export const likePost = (_id, like) => ({
+  type: "LIKE_POST",
+  _id,
+  like,
+});
+export const unlikePost = (_id, like) => ({
+  type: "UNLIKE_POST",
+  _id,
+  like,
+});
+export const commentOnPost = (_id, comment) => ({
+  type: "COMMENT_ON_POST",
+  _id,
+  comment,
+});

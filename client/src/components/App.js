@@ -5,6 +5,7 @@ import Feed from "./Feed";
 import Profile from "./Profile";
 import TimerPage from "./TimerPage";
 import SignUp from "./SignUp";
+import CommentPage from "./CommentPage";
 
 function App() {
   return (
@@ -24,6 +25,9 @@ function App() {
         </Route>
         <Route exact path="/signup">
           <SignUp />
+        </Route>
+        <Route exact path="/comment/:postId">
+          <CommentPage />
         </Route>
       </Switch>
     </Router>

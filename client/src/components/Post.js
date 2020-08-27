@@ -2,10 +2,59 @@ import React from "react";
 import styled from "styled-components";
 import moment from "moment";
 import { FiThumbsUp, FiMessageSquare } from "react-icons/fi";
+import { useSelector, useDispatch } from "react-redux";
+import { likePost, unlikePost } from "../actions";
+import { useHistory } from "react-router-dom";
 
 const Post = ({ post }) => {
-  const handleLike = () => {};
-  const handleComment = () => {};
+  const history = useHistory();
+  const dispatch = useDispatch();
+  const currentUser = useSelector((state) => state.user.user);
+
+  const handleLike = () => {
+    const likeData = {
+      _id: currentUser._id,
+      name: currentUser.name,
+    };
+    if (
+      post.likes.some((obj) => {
+        return obj._id === currentUser._id;
+      })
+    ) {
+      fetch("/unlike", {
+        method: "put",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          _id: post._id,
+          like: likeData,
+        }),
+      }).then(() => {
+        dispatch(unlikePost(post._id, likeData));
+      });
+    } else {
+      fetch("/like", {
+        method: "put",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          _id: post._id,
+          like: {
+            _id: currentUser._id,
+            name: currentUser.name,
+          },
+        }),
+      }).then(() => {
+        dispatch(likePost(post._id, likeData));
+      });
+    }
+  };
+
+  const handleComment = () => {
+    history.push(`/comment/${post._id}`);
+  };
   return (
     <Wrapper>
       <Header>
@@ -25,10 +74,29 @@ const Post = ({ post }) => {
         {post.imgSrc !== null && (
           <img src={post.imgSrc} alt="meditation spot" />
         )}
+        {post.comments.length > 0 && <div></div>}
       </Content>
       <Footer>
-        <FiThumbsUp size={"1.5em"} onClick={handleLike} />
-        <FiMessageSquare size={"1.5em"} onClick={handleComment} />
+        <div>
+          <FiThumbsUp
+            size={"1.5em"}
+            onClick={handleLike}
+            className={
+              post.likes.some((obj) => {
+                return obj._id === currentUser._id;
+              }) && "active"
+            }
+          />
+          <span className={post.likes.length === 0 && "hidden"}>
+            {post.likes.length}
+          </span>
+        </div>
+        <div>
+          <FiMessageSquare size={"1.5em"} onClick={handleComment} />
+          <span className={post.comments.length === 0 && "hidden"}>
+            {post.comments.length}
+          </span>
+        </div>
       </Footer>
     </Wrapper>
   );
@@ -41,7 +109,7 @@ const Content = styled.div`
     margin-left: 3px;
   }
   img {
-    height: 150px;
+    height: 170px;
     width: 100%;
     object-fit: cover;
     border-radius: 12px;
@@ -49,13 +117,32 @@ const Content = styled.div`
   }
 `;
 const Footer = styled.div`
-  border-top: 2px solid #eee;
+  border-top: 1px solid #eee;
   height: 50px;
   display: flex;
   align-items: center;
   justify-content: space-evenly;
-  svg {
-    cursor: pointer;
+  background-color: #d9d4e7;
+  position: relative;
+  div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 20%;
+    span {
+      margin-left: 8px;
+      &.hidden {
+        visibility: hidden;
+      }
+    }
+    svg {
+      cursor: pointer;
+      &.active {
+        color: white;
+        fill: #a786df;
+        stroke-width: 1.5;
+      }
+    }
   }
 `;
 const Wrapper = styled.div`

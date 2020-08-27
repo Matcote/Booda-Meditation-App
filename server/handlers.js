@@ -190,7 +190,6 @@ const getPost = async (req, res) => {
   try {
     await client.connect();
     const db = client.db("meditation_app");
-    console.log(_id);
     await db
       .collection("meditations")
       .findOne({ _id: ObjectId(_id) }, async (err, result) => {
