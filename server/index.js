@@ -3,7 +3,17 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const morgan = require("morgan");
-const { logIn, createUser, addMeditation, getFeed } = require("./handlers");
+const {
+  logIn,
+  createUser,
+  addMeditation,
+  getFeed,
+  likePost,
+  unlikePost,
+  commentPost,
+  getProfile,
+  getPost,
+} = require("./handlers");
 
 const PORT = 4000;
 
@@ -31,8 +41,13 @@ app
   .use("/", express.static(__dirname + "/"))
 
   .get("/feed/:_id", getFeed)
+  .get("/profile/:_id", getProfile)
+  .get("/post/:_id", getPost)
   .post("/login", logIn)
   .post("/users", createUser)
   .put("/meditate", addMeditation)
+  .put("/like", likePost)
+  .put("/unlike", unlikePost)
+  .put("/comment", commentPost)
 
   .listen(PORT, () => console.info(`Listening on port ${PORT}`));
