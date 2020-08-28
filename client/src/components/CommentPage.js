@@ -78,7 +78,7 @@ const CommentPage = () => {
               post.comments.map((comment, index) => {
                 return (
                   <Comment key={index}>
-                    <img src={comment.avatarSrc} />
+                    <img src={comment.avatarSrc} alt={comment.name} />
                     <div>
                       <h3>
                         {comment.name}
@@ -222,6 +222,7 @@ const Wrapper = styled.div`
   margin: 4px 0;
   background-color: white;
   overflow: scroll;
+  scroll-behavior: smooth;
 `;
 const Avatar = styled.img`
   height: 40px;

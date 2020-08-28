@@ -223,10 +223,12 @@ const getProfile = async (req, res) => {
     const sortedPosts = posts.sort(
       (a, b) => new Date(b.date) - new Date(a.date)
     );
+    const user = await db.collection("users").findOne({ _id });
     res.status(200).json({
       status: 200,
       _id,
-      data: sortedPosts,
+      posts: sortedPosts,
+      user: user,
     });
   } catch (err) {
     console.log(err.stack);

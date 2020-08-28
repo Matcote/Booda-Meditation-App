@@ -9,6 +9,8 @@ const initialState = {
     name: "Matthew Cote",
     email: "matthewcotesipod@gmail.com",
     password: "ironman",
+    avatarSrc:
+      "https://ca.slack-edge.com/T045DMA9Q-U01446KGT4L-23932335e5b2-512",
   },
 };
 

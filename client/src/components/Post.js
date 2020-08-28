@@ -87,7 +87,7 @@ const Post = ({ post }) => {
               }) && "active"
             }
           />
-          <span className={post.likes.length === 0 && "hidden"}>
+          <span className={post.likes.length === 0 ? "hidden" : undefined}>
             {post.likes.length}
           </span>
         </div>
