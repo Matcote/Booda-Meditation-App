@@ -48,6 +48,7 @@ const Wrapper = styled.div`
   align-items: center;
   height: 90%;
   background-color: #f9f8fc;
+  overflow: scroll;
 `;
 const Header = styled.div`
   padding: 12px 0;

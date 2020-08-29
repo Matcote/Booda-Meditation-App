@@ -55,6 +55,7 @@ const Post = ({ post }) => {
   const handleComment = () => {
     history.push(`/comment/${post._id}`);
   };
+  console.log(post.imgSrc);
   return (
     <Wrapper>
       <Header>
@@ -71,7 +72,7 @@ const Post = ({ post }) => {
       </Header>
       <Content>
         <p>{post.comment}</p>
-        {post.imgSrc !== null && (
+        {post.imgSrc !== undefined && (
           <img src={post.imgSrc} alt="meditation spot" />
         )}
         {post.comments.length > 0 && <div></div>}
