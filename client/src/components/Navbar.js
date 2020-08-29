@@ -6,7 +6,7 @@ import { FiUser, FiHome, FiClock } from "react-icons/fi";
 const Navbar = () => {
   return (
     <Wrapper>
-      <NavLink to="/">
+      <NavLink exact={true} to="/">
         <FiHome size={"2em"} />
       </NavLink>
       <NavLink to="/timer">
@@ -29,6 +29,14 @@ const Wrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-around;
+  a {
+    padding: 8px;
+    border-radius: 50%;
+  }
+  .active {
+    color: white;
+    background-color: #9656a1;
+  }
 `;
 
 export default Navbar;

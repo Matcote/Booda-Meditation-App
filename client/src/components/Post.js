@@ -55,7 +55,6 @@ const Post = ({ post }) => {
   const handleComment = () => {
     history.push(`/comment/${post._id}`);
   };
-  console.log(post.imgSrc);
   return (
     <Wrapper>
       <Header>
