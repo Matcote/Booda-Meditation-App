@@ -4,6 +4,7 @@ import { BiImageAdd } from "react-icons/bi";
 import { useSelector } from "react-redux";
 
 const Timer = () => {
+  const bellAudio = new Audio("../assets/bell.wav");
   const [time, setTime] = React.useState(60);
   const [mediInterval, setMediInterval] = React.useState(null);
   const [length, setLength] = React.useState(time);
@@ -11,7 +12,7 @@ const Timer = () => {
   const [modal, setModal] = React.useState("none");
   const [initialSpot, setInitialSpot] = React.useState(null);
   const currentUser = useSelector((state) => state.user.user);
-  const commentRef = React.createRef();
+  const [comment, setComment] = React.useState("");
   const formatTime = (time) => {
     const minutes = Math.floor(time / 60);
     let seconds = time % 60;
@@ -21,6 +22,7 @@ const Timer = () => {
     return `${minutes}:${seconds}`;
   };
   const startTimer = () => {
+    bellAudio.play();
     setColor("#a786df");
     setLength(time);
     setMediInterval(
@@ -42,7 +44,7 @@ const Timer = () => {
         _id: currentUser._id,
         meditation: {
           time: length,
-          comment: commentRef.current.value,
+          comment: comment,
           date: date,
           user: currentUser._id,
           name: currentUser.name,
@@ -52,7 +54,7 @@ const Timer = () => {
         },
       }),
     }).then(() => {
-      //commentRef.current.value = "";
+      setComment("");
     });
   };
   const handleDragStart = (event) => {
@@ -60,7 +62,6 @@ const Timer = () => {
     dragImg.src =
       "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7";
     event.dataTransfer.setDragImage(dragImg, 0, 0);
-    event.target.style.cursor = "pointer";
   };
   const onMouseMove = (event) => {
     if (initialSpot === null) {
@@ -77,6 +78,7 @@ const Timer = () => {
 
   React.useEffect(() => {
     if (time === 0) {
+      bellAudio.play();
       clearInterval(mediInterval);
       setTime(length);
       setColor("grey");
@@ -125,7 +127,8 @@ const Timer = () => {
         <div>
           <h3>Great job!</h3>
           <textarea
-            ref={commentRef}
+            value={comment}
+            onChange={(event) => setComment(event.target.value)}
             placeholder="How was your session? What did you do well/struggle with?"
           ></textarea>
           <Pic>
