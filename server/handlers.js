@@ -56,13 +56,16 @@ const addMeditation = async (req, res) => {
     await client.connect();
     const db = client.db("meditation_app");
     const newValues = {
-      $push: {
-        meditations: req.body.meditation,
+      $inc: {
+        totalMinutes: req.body.meditation.time / 60,
+        totalSessions: 1,
       },
     };
     const r = await db.collection("users").updateOne({ _id }, newValues);
     assert.equal(1, r.matchedCount);
     assert.equal(1, r.modifiedCount);
+    const x = await db.collection("meditations").insertOne(req.body.meditation);
+    assert.equal(1, x.insertedCount);
     res.status(200).json({ status: 200, data: { ...req.body } });
   } catch (err) {
     console.log(err.stack);
@@ -85,7 +88,6 @@ const getFeed = async (req, res) => {
       .findOne({ _id }, async (err, result) => {
         if (result) {
           const accounts = result.follows;
-
           const posts = await db
             .collection("meditations")
             .find({ user: { $in: accounts } })
@@ -134,6 +136,7 @@ const likePost = async (req, res) => {
       .json({ status: 500, data: { ...req.body }, message: err.message });
   }
 };
+
 const unlikePost = async (req, res) => {
   const _id = req.body._id;
   const client = await MongoClient(MONGO_URI, options);

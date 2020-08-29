@@ -10,7 +10,7 @@ const Timer = () => {
   const [color, setColor] = React.useState("grey");
   const [modal, setModal] = React.useState("none");
   const [initialSpot, setInitialSpot] = React.useState(null);
-  const _id = useSelector((state) => state.user.user._id);
+  const currentUser = useSelector((state) => state.user.user);
   const commentRef = React.createRef();
   const formatTime = (time) => {
     const minutes = Math.floor(time / 60);
@@ -39,11 +39,16 @@ const Timer = () => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        _id: _id,
+        _id: currentUser._id,
         meditation: {
           time: length,
           comment: commentRef.current.value,
           date: date,
+          user: currentUser._id,
+          name: currentUser.name,
+          likes: [],
+          comments: [],
+          avatarSrc: currentUser.avatarSrc,
         },
       }),
     }).then(() => {

@@ -28,6 +28,12 @@ const SignUp = () => {
           name: nameRef.current.value,
           email: emailRef.current.value,
           password: passwordRef.current.value,
+          avatarSrc:
+            "https://m5.paperblog.com/i/57/579487/the-myth-of-the-serious-meditator-L-OM4_UN.jpeg",
+          totalMinutes: 0,
+          totalSessions: 0,
+          follows: [emailRef.current.value],
+          achievements: [],
         }),
       })
         .then((res) => res.json())

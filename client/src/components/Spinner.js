@@ -14,7 +14,7 @@ to {
 const Spinner = () => {
   return (
     <Wrapper id="spinner">
-      <Spin />
+      <Spin size={"1.5em"} color={"#a786df"} />
     </Wrapper>
   );
 };
