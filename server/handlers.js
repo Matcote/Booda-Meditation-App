@@ -9,6 +9,36 @@ const options = {
   useUnifiedTopology: true,
 };
 
+const achievementCheck = (user) => {
+  const achievements = {
+    welcome: false,
+    tenSessions: false,
+    dayInLife: false,
+    meditationRetreat: false,
+    buddha: false,
+    year: false,
+  };
+  if (user.totalSessions > 0) {
+    achievements.welcome = true;
+  }
+  if (user.totalSessions > 10) {
+    achievements.tenSessions = true;
+  }
+  if (user.totalMinutes > 1439) {
+    achievements.dayInLife = true;
+  }
+  if (user.totalMinutes > 5999) {
+    achievements.meditationRetreat = true;
+  }
+  if (user.totalMinutes > 100000) {
+    achievements.buddha = true;
+  }
+  if (user.totalSessions > 364) {
+    achievements.year = true;
+  }
+
+  return achievements;
+};
 //HANDLERS
 
 const logIn = async (req, res) => {
@@ -66,6 +96,8 @@ const addMeditation = async (req, res) => {
     assert.equal(1, r.modifiedCount);
     const x = await db.collection("meditations").insertOne(req.body.meditation);
     assert.equal(1, x.insertedCount);
+    //
+
     res.status(200).json({ status: 200, data: { ...req.body } });
   } catch (err) {
     console.log(err.stack);
@@ -227,11 +259,15 @@ const getProfile = async (req, res) => {
       (a, b) => new Date(b.date) - new Date(a.date)
     );
     const user = await db.collection("users").findOne({ _id });
+    //checking for achievements
+    const achievements = achievementCheck(user);
+
     res.status(200).json({
       status: 200,
       _id,
       posts: sortedPosts,
       user: user,
+      achievements: achievements,
     });
   } catch (err) {
     console.log(err.stack);

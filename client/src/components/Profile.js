@@ -6,6 +6,7 @@ import Navbar from "./Navbar";
 import { Line } from "react-chartjs-2";
 import moment from "moment";
 import Spinner from "./Spinner";
+import Achievements from "./Achievements";
 
 const Profile = () => {
   const history = useHistory();
@@ -126,9 +127,17 @@ const Profile = () => {
     fetch(`/profile/${profileId}`)
       .then((res) => res.json())
       .then((data) => {
-        setProfile({ posts: data.posts, user: data.user });
+        setProfile({
+          posts: data.posts,
+          user: data.user,
+          achievements: data.achievements,
+        });
       });
   }, []);
+  React.useEffect(() => {
+    setData(monthData);
+    // eslint-disable-next-line
+  }, [profile]);
   const options = {
     scales: {
       xAxes: [
@@ -156,70 +165,78 @@ const Profile = () => {
   };
 
   return (
-    <>
+    <Main>
       <Banner>
         <span>Profile</span>
       </Banner>
       <Wrapper>
         <Avatar src={user.avatarSrc} alt={user.name} />
         <Name>{user.name}</Name>
-        <Stats>
-          <Stat>
-            <h3>{user.totalMinutes}</h3>
-            <p>Mindful Minutes</p>
-          </Stat>
-          <Stat>
-            <h3>{user.totalSessions}</h3>
-            <p>Total Sessions</p>
-          </Stat>
-        </Stats>
-        <ChartType>
-          <button
-            className={weekStyle === true && "active"}
-            onClick={() => {
-              setData(weekData);
-              setWeekStyle(true);
-              setMonthStyle(false);
-              setYearStyle(false);
-            }}
-          >
-            Week
-          </button>
-          <button
-            className={monthStyle === true && "active"}
-            onClick={() => {
-              setData(monthData);
-              setWeekStyle(false);
-              setMonthStyle(true);
-              setYearStyle(false);
-            }}
-          >
-            Month
-          </button>
-          <button
-            className={yearStyle === true && "active"}
-            onClick={() => {
-              setData(yearData);
-              setWeekStyle(false);
-              setMonthStyle(false);
-              setYearStyle(true);
-            }}
-          >
-            Year
-          </button>
-        </ChartType>
         {profile === undefined ? (
           <Spinner />
         ) : (
-          <div style={{ padding: "10px" }}>
-            <Line data={data} options={options} />
-          </div>
+          <>
+            <Stats>
+              <Stat>
+                <h3>{user.totalMinutes}</h3>
+                <p>Mindful Minutes</p>
+              </Stat>
+              <Stat>
+                <h3>{user.totalSessions}</h3>
+                <p>Total Sessions</p>
+              </Stat>
+            </Stats>
+            <ChartType>
+              <button
+                className={weekStyle === true && "active"}
+                onClick={() => {
+                  setData(weekData);
+                  setWeekStyle(true);
+                  setMonthStyle(false);
+                  setYearStyle(false);
+                }}
+              >
+                Week
+              </button>
+              <button
+                className={monthStyle === true && "active"}
+                onClick={() => {
+                  setData(monthData);
+                  setWeekStyle(false);
+                  setMonthStyle(true);
+                  setYearStyle(false);
+                }}
+              >
+                Month
+              </button>
+              <button
+                className={yearStyle === true && "active"}
+                onClick={() => {
+                  setData(yearData);
+                  setWeekStyle(false);
+                  setMonthStyle(false);
+                  setYearStyle(true);
+                }}
+              >
+                Year
+              </button>
+            </ChartType>
+            <div style={{ padding: "10px" }}>
+              <Line data={data} options={options} />
+            </div>
+            <Achievements achievements={profile.achievements} />
+          </>
         )}
       </Wrapper>
       <Navbar />
-    </>
+    </Main>
   );
 };
+const Main = styled.div`
+  height: 100%;
+  overflow: scroll;
+  scroll-behavior: smooth;
+`;
 const ChartType = styled.div`
   margin: 10px;
   display: flex;
@@ -267,15 +284,14 @@ const Avatar = styled.img`
   width: 100px;
   height: 100px;
   border-radius: 50%;
-  /* position: sticky;
-  top: 10px; */
   margin-top: -50px;
   margin-left: 40px;
 `;
 const Wrapper = styled.div`
-  position: relative;
+  position: sticky;
+  top: 60px;
   box-shadow: 1px 1px 10px 0px rgba(0, 0, 0, 0.5);
-  top: 140px;
+  margin-top: 140px;
   background-color: #f9f8fc;
   border-top-left-radius: 25px;
   border-top-right-radius: 25px;
@@ -291,6 +307,7 @@ const Banner = styled.div`
   display: flex;
   justify-content: center;
   position: absolute;
+  top: 0;
   height: 170px;
   width: 100%;
   background: linear-gradient(to right, #fec7d7, #a786df);

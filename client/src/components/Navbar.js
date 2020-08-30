@@ -24,7 +24,7 @@ const Wrapper = styled.div`
   height: 75px;
   width: 100%;
   background-color: #a786df;
-  color: white;
+  color: #0e172c;
   overflow: hidden;
   display: flex;
   align-items: center;
@@ -35,7 +35,7 @@ const Wrapper = styled.div`
   }
   .active {
     color: white;
-    background-color: #9656a1;
+    background-color: #0e172c;
   }
 `;
 
