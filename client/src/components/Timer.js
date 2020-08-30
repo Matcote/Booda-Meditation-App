@@ -1,18 +1,23 @@
 import React from "react";
 import styled from "styled-components";
-import { BiImageAdd } from "react-icons/bi";
+import { BiImageAdd, BiArrowBack } from "react-icons/bi";
+import { FiSettings } from "react-icons/fi";
 import { useSelector } from "react-redux";
+const bellAudio = new Audio("../assets/bell.wav");
+const intervalAudio = new Audio("../assets/interval.mp3");
 
 const Timer = () => {
-  const bellAudio = new Audio("../assets/bell.wav");
   const [time, setTime] = React.useState(60);
+  const [settingsModal, setSettingsModal] = React.useState("none");
   const [mediInterval, setMediInterval] = React.useState(null);
+  const [intervalBell, setIntervalBell] = React.useState(false);
   const [length, setLength] = React.useState(time);
   const [color, setColor] = React.useState("grey");
   const [modal, setModal] = React.useState("none");
   const [initialSpot, setInitialSpot] = React.useState(null);
   const currentUser = useSelector((state) => state.user.user);
   const [comment, setComment] = React.useState("");
+  const [endBell, setEndBell] = React.useState(true);
   const formatTime = (time) => {
     const minutes = Math.floor(time / 60);
     let seconds = time % 60;
@@ -78,16 +83,26 @@ const Timer = () => {
 
   React.useEffect(() => {
     if (time === 0) {
-      bellAudio.play();
+      if (endBell === true) {
+        bellAudio.play();
+      }
       clearInterval(mediInterval);
       setTime(length);
       setColor("grey");
       setModal("flex");
     }
+    if (time === length / 2) {
+      if (intervalBell === true) {
+        intervalAudio.play();
+      }
+    }
     // eslint-disable-next-line
   }, [time, mediInterval]);
   return (
     <>
+      <Settings onClick={() => setSettingsModal("flex")}>
+        <FiSettings size={"2.6em"} />
+      </Settings>
       <Wrapper>
         <svg className="base-timer__svg" viewBox="0 0 100 100">
           <g className="base-timer__circle">
@@ -137,9 +152,50 @@ const Timer = () => {
           <Submit onClick={handleSubmit}>Post</Submit>
         </div>
       </Modal>
+      <Modal style={{ display: settingsModal }}>
+        <div>
+          <BiArrowBack
+            onClick={() => setSettingsModal("none")}
+            size={"2em"}
+            style={{
+              cursor: "pointer",
+              marginRight: "90%",
+              marginBottom: "20px",
+            }}
+          />
+          <Setting>Bell upon finishing</Setting>
+          <label className="switch">
+            <input
+              type="checkbox"
+              checked={endBell}
+              onChange={() => setEndBell(!endBell)}
+            />
+            <span className="slider round"></span>
+          </label>
+          <Setting>Interval halfway</Setting>
+          <label className="switch">
+            <input
+              type="checkbox"
+              checked={intervalBell}
+              onChange={() => setIntervalBell(!intervalBell)}
+            />
+            <span className="slider round"></span>
+          </label>
+        </div>
+      </Modal>
     </>
   );
 };
+const Settings = styled.button`
+  position: absolute;
+  top: 80px;
+  right: 45px;
+  background: none;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  color: #0e172c;
+`;
 const Wrapper = styled.div`
   position: relative;
   height: 300px;
@@ -192,6 +248,11 @@ const Button = styled.button`
   outline: none;
   cursor: pointer;
 `;
+const Setting = styled.p`
+  display: inline-block;
+  width: 80%;
+  margin-bottom: 30px;
+`;
 const Modal = styled.div`
   height: 100%;
   width: 100%;
@@ -208,6 +269,9 @@ const Modal = styled.div`
     opacity: 1;
     border-radius: 8px;
     padding: 12px;
+    label {
+      margin-left: auto;
+    }
     textarea {
       margin: 8px 0;
       width: 100%;
@@ -217,6 +281,58 @@ const Modal = styled.div`
       outline: none;
       resize: none;
       border-radius: 6px;
+      border: solid 2px #eee;
+    }
+    .switch {
+      position: absolute;
+      right: 40px;
+      display: inline-block;
+      width: 60px;
+      height: 34px;
+    }
+    .switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: #ccc;
+      -webkit-transition: 0.4s;
+      transition: 0.4s;
+    }
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 26px;
+      width: 26px;
+      left: 4px;
+      bottom: 4px;
+      background-color: white;
+      -webkit-transition: 0.4s;
+      transition: 0.4s;
+    }
+    input:checked + .slider {
+      background-color: #2196f3;
+    }
+    input:focus + .slider {
+      box-shadow: 0 0 1px #2196f3;
+    }
+    input:checked + .slider:before {
+      -webkit-transform: translateX(26px);
+      -ms-transform: translateX(26px);
+      transform: translateX(26px);
+    }
+    .slider.round {
+      border-radius: 34px;
+    }
+    .slider.round:before {
+      border-radius: 50%;
     }
   }
 `;

@@ -71,7 +71,7 @@ const CommentPage = () => {
           </Header>
           <Content>
             <p>{post.comment}</p>
-            {post.imgSrc !== null && (
+            {post.imgSrc !== undefined && (
               <img src={post.imgSrc} alt="meditation spot" />
             )}
             {post.comments.length > 0 &&
