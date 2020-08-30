@@ -18,6 +18,7 @@ const Timer = () => {
   const currentUser = useSelector((state) => state.user.user);
   const [comment, setComment] = React.useState("");
   const [endBell, setEndBell] = React.useState(true);
+  const [disableButton, setDisableButton] = React.useState(false);
   const formatTime = (time) => {
     const minutes = Math.floor(time / 60);
     let seconds = time % 60;
@@ -27,6 +28,7 @@ const Timer = () => {
     return `${minutes}:${seconds}`;
   };
   const startTimer = () => {
+    setDisableButton(!disableButton);
     bellAudio.play();
     setColor("#a786df");
     setLength(time);
@@ -60,6 +62,7 @@ const Timer = () => {
       }),
     }).then(() => {
       setComment("");
+      setDisableButton(!disableButton);
     });
   };
   const handleDragStart = (event) => {
@@ -136,7 +139,9 @@ const Timer = () => {
         >
           {formatTime(time)}
         </TimeLabel>
-        <Button onClick={startTimer}>Start</Button>
+        <Button onClick={startTimer} disabled={disableButton}>
+          Start
+        </Button>
       </Wrapper>
       <Modal style={{ display: modal }}>
         <div>
