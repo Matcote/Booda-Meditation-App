@@ -274,6 +274,52 @@ const getProfile = async (req, res) => {
     res.status(500).json({ status: 500, data: req.body, message: err.message });
   }
 };
+const addChallenge = async (req, res) => {
+  const _id = req.body._id;
+  const client = await MongoClient(MONGO_URI, options);
+  try {
+    await client.connect();
+    const db = client.db("meditation_app");
+    const newValues = {
+      $push: {
+        challenges: req.body.challenge,
+      },
+    };
+    const r = await db.collection("users").updateOne({ _id }, newValues);
+    assert.equal(1, r.matchedCount);
+    assert.equal(1, r.modifiedCount);
+    res.status(200).json({ status: 200, data: { ...req.body } });
+    client.close();
+  } catch (err) {
+    console.log(err.stack);
+    res
+      .status(500)
+      .json({ status: 500, data: { ...req.body }, message: err.message });
+  }
+};
+const removeChallenge = async (req, res) => {
+  const _id = req.body._id;
+  const client = await MongoClient(MONGO_URI, options);
+  try {
+    await client.connect();
+    const db = client.db("meditation_app");
+    const newValues = {
+      $pull: {
+        challenges: req.body.challenge,
+      },
+    };
+    const r = await db.collection("users").updateOne({ _id }, newValues);
+    assert.equal(1, r.matchedCount);
+    assert.equal(1, r.modifiedCount);
+    res.status(200).json({ status: 200, data: { ...req.body } });
+    client.close();
+  } catch (err) {
+    console.log(err.stack);
+    res
+      .status(500)
+      .json({ status: 500, data: { ...req.body }, message: err.message });
+  }
+};
 
 module.exports = {
   createUser,
@@ -285,4 +331,6 @@ module.exports = {
   commentPost,
   getProfile,
   getPost,
+  addChallenge,
+  removeChallenge,
 };

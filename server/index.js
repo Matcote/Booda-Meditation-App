@@ -13,6 +13,8 @@ const {
   commentPost,
   getProfile,
   getPost,
+  addChallenge,
+  removeChallenge,
 } = require("./handlers");
 
 const PORT = 4000;
@@ -49,5 +51,7 @@ app
   .put("/like", likePost)
   .put("/unlike", unlikePost)
   .put("/comment", commentPost)
+  .put("/addChallenge", addChallenge)
+  .put("/removeChallenge", removeChallenge)
 
   .listen(PORT, () => console.info(`Listening on port ${PORT}`));

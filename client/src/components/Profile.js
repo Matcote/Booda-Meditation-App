@@ -7,6 +7,7 @@ import { Line } from "react-chartjs-2";
 import moment from "moment";
 import Spinner from "./Spinner";
 import Achievements from "./Achievements";
+import Challenges from "./Challenges";
 
 const Profile = () => {
   const history = useHistory();
@@ -117,13 +118,14 @@ const Profile = () => {
       },
     ],
   };
+
   const [data, setData] = React.useState(monthData);
   let profileId = useParams()._id;
+  if (profileId === undefined) {
+    // eslint-disable-next-line
+    profileId = user._id;
+  }
   React.useEffect(() => {
-    if (profileId === undefined) {
-      // eslint-disable-next-line
-      profileId = user._id;
-    }
     fetch(`/profile/${profileId}`)
       .then((res) => res.json())
       .then((data) => {
@@ -133,6 +135,7 @@ const Profile = () => {
           achievements: data.achievements,
         });
       });
+    // eslint-disable-next-line
   }, []);
   React.useEffect(() => {
     setData(monthData);
@@ -225,6 +228,12 @@ const Profile = () => {
               <Line data={data} options={options} />
             </div>
             <Achievements achievements={profile.achievements} />
+            <Challenges
+              challenges={profile.user.challenges}
+              _id={profileId}
+              profile={profile}
+              setProfile={setProfile}
+            />
           </>
         )}
       </Wrapper>
@@ -296,7 +305,7 @@ const Wrapper = styled.div`
   border-top-left-radius: 25px;
   border-top-right-radius: 25px;
   width: 100%;
-  height: 100%;
+  min-height: 100%;
 `;
 const Banner = styled.div`
   span {

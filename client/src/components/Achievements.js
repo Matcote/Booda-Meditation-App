@@ -28,8 +28,6 @@ const Achievements = ({ achievements }) => {
     },
     { _id: "year", how: "Meditate 365 times.", src: "../assets/year.png" },
   ];
-
-  console.log(achievements);
   return (
     <Wrapper>
       <h2>Achievements</h2>

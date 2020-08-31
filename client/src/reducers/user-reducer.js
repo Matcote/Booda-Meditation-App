@@ -21,6 +21,13 @@ const initialState = {
     totalMinutes: 100,
     totalSessions: 10,
     achievements: [],
+    challenges: [
+      {
+        name: "September Daily Medi",
+        src: "../assets/medal1.png",
+        description: "Meditate every day for the month of September.",
+      },
+    ],
   },
 };
 

@@ -34,6 +34,7 @@ const SignUp = () => {
           totalSessions: 0,
           follows: [emailRef.current.value],
           achievements: [],
+          challenges: [],
         }),
       })
         .then((res) => res.json())
