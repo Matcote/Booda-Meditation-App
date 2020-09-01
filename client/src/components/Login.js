@@ -44,7 +44,7 @@ const Login = () => {
   return (
     <>
       <Wrapper>
-        <h1>Zunity</h1>
+        <h1>Booda</h1>
         <Input>
           <FiUser size={"1.2em"} />
           <input
