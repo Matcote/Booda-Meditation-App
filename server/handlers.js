@@ -1,5 +1,6 @@
 const assert = require("assert");
 const { MongoClient, ObjectId } = require("mongodb");
+const fs = require("fs");
 
 require("dotenv").config();
 const { MONGO_URI } = process.env;
@@ -80,6 +81,17 @@ const createUser = async (req, res) => {
 };
 
 const addMeditation = async (req, res) => {
+  const meditation = JSON.parse(req.body.meditation);
+  let fileType = req.file.mimetype.split("/")[1];
+  let newFileName = req.file.filename + "." + fileType;
+  fs.rename(
+    `./assets/uploads/${req.file.filename}`,
+    `./assets/uploads/${newFileName}`,
+    function () {
+      meditation.imgSrc = `./assets/uploads/${newFileName}`;
+    }
+  );
+
   const _id = req.body._id;
   const client = await MongoClient(MONGO_URI, options);
   try {
@@ -87,14 +99,14 @@ const addMeditation = async (req, res) => {
     const db = client.db("meditation_app");
     const newValues = {
       $inc: {
-        totalMinutes: req.body.meditation.time / 60,
+        totalMinutes: meditation.time / 60,
         totalSessions: 1,
       },
     };
     const r = await db.collection("users").updateOne({ _id }, newValues);
     assert.equal(1, r.matchedCount);
     assert.equal(1, r.modifiedCount);
-    const x = await db.collection("meditations").insertOne(req.body.meditation);
+    const x = await db.collection("meditations").insertOne(meditation);
     assert.equal(1, x.insertedCount);
     //
 

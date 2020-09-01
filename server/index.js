@@ -2,6 +2,8 @@
 
 const express = require("express");
 const bodyParser = require("body-parser");
+const multer = require("multer");
+const upload = multer({ dest: "./assets/uploads/" });
 const morgan = require("morgan");
 const {
   logIn,
@@ -47,7 +49,7 @@ app
   .get("/post/:_id", getPost)
   .post("/login", logIn)
   .post("/users", createUser)
-  .put("/meditate", addMeditation)
+  .put("/meditate", upload.single("image"), addMeditation)
   .put("/like", likePost)
   .put("/unlike", unlikePost)
   .put("/comment", commentPost)

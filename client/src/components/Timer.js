@@ -7,7 +7,7 @@ const bellAudio = new Audio("../assets/bell.wav");
 const intervalAudio = new Audio("../assets/interval.mp3");
 
 const Timer = () => {
-  const [time, setTime] = React.useState(60);
+  const [time, setTime] = React.useState(600);
   const [settingsModal, setSettingsModal] = React.useState("none");
   const [mediInterval, setMediInterval] = React.useState(null);
   const [intervalBell, setIntervalBell] = React.useState(false);
@@ -19,6 +19,7 @@ const Timer = () => {
   const [comment, setComment] = React.useState("");
   const [endBell, setEndBell] = React.useState(true);
   const [disableButton, setDisableButton] = React.useState(false);
+  const [image, setImage] = React.useState(null);
   const formatTime = (time) => {
     const minutes = Math.floor(time / 60);
     let seconds = time % 60;
@@ -42,24 +43,25 @@ const Timer = () => {
   const handleSubmit = () => {
     const date = new Date();
     setModal("none");
+    let formData = new FormData();
+    formData.append("image", image);
+    formData.append("_id", currentUser._id);
+    formData.append(
+      "meditation",
+      JSON.stringify({
+        time: length,
+        comment: comment,
+        date: date,
+        user: currentUser._id,
+        name: currentUser.name,
+        likes: [],
+        comments: [],
+        avatarSrc: currentUser.avatarSrc,
+      })
+    );
     fetch("/meditate", {
       method: "put",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        _id: currentUser._id,
-        meditation: {
-          time: length,
-          comment: comment,
-          date: date,
-          user: currentUser._id,
-          name: currentUser.name,
-          likes: [],
-          comments: [],
-          avatarSrc: currentUser.avatarSrc,
-        },
-      }),
+      body: formData,
     }).then(() => {
       setComment("");
       setDisableButton(!disableButton);
@@ -152,7 +154,14 @@ const Timer = () => {
             placeholder="How was your session? What did you do well/struggle with?"
           ></textarea>
           <Pic>
-            <BiImageAdd size={"2em"} />
+            <label htmlFor="image">
+              <BiImageAdd size={"2em"} />
+            </label>
+            <input
+              id="image"
+              type="file"
+              onChange={(event) => setImage(event.target.files[0])}
+            />
           </Pic>
           <Submit onClick={handleSubmit}>Post</Submit>
         </div>
@@ -361,14 +370,21 @@ const Submit = styled.button`
   cursor: pointer;
 `;
 
-const Pic = styled.button`
-  width: 50px;
-  height: 40px;
-  background: none;
-  outline: none;
-  border: 0.5px solid grey;
-  border-radius: 8px;
-  padding-top: 4px;
-  margin-top: 5px;
+const Pic = styled.div`
+  width: 50px !important;
+  height: 40px !important;
+  background: none !important;
+  outline: none !important;
+  border: 0.5px solid grey !important;
+  border-radius: 8px !important;
+  padding-top: 4px !important;
+  margin-top: 5px !important;
+  cursor: pointer !important;
+  label {
+    cursor: pointer !important;
+  }
+  input {
+    display: none;
+  }
 `;
 export default Timer;
