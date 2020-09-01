@@ -6,6 +6,8 @@ import Navbar from "./Navbar";
 import { requestFeed, receiveFeed, receiveFeedError } from "../actions";
 import Spinner from "./Spinner";
 import Post from "./Post";
+import { useSpring, animated } from "react-spring";
+import { useDrag } from "react-use-gesture";
 
 const Feed = () => {
   const dispatch = useDispatch();
@@ -28,16 +30,37 @@ const Feed = () => {
         });
     }
   });
+  const [{ x, y }, set] = useSpring(() => ({ x: 0, y: 0 }));
+  let fetched = false;
+  const bind = useDrag(({ down, movement: [mx, my] }) => {
+    set({ x: down ? mx : 0, y: down ? my : 0 });
+    if (my >= 100 && fetched === false) {
+      dispatch(requestFeed());
+      fetch(`/feed/${user._id}`)
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.status === 200) {
+            dispatch(receiveFeed(data.data));
+          } else {
+            dispatch(receiveFeedError());
+          }
+        });
+      fetched = true;
+    }
+  });
+
   return (
     <Wrapper>
       <Header>Feed</Header>
-      {posts === null ? (
-        <Spinner />
-      ) : (
-        posts.map((post) => {
-          return <Post key={post._id} post={post} />;
-        })
-      )}
+      <PostDiv {...bind()} style={{ top: y }}>
+        {posts === null ? (
+          <Spinner />
+        ) : (
+          posts.map((post) => {
+            return <Post key={post._id} post={post} />;
+          })
+        )}
+      </PostDiv>
       <Navbar />
     </Wrapper>
   );
@@ -49,6 +72,12 @@ const Wrapper = styled.div`
   height: 90%;
   background-color: #f9f8fc;
   overflow: scroll;
+`;
+const PostDiv = styled(animated.div)`
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `;
 const Header = styled.div`
   padding: 12px 0;
