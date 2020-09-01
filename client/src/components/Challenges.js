@@ -5,7 +5,7 @@ import "tippy.js/dist/tippy.css";
 import { GrAddCircle } from "react-icons/gr";
 import { BiArrowBack } from "react-icons/bi";
 
-const Challenges = ({ challenges, _id, profile, setProfile }) => {
+const Challenges = ({ challenges, _id, profile, setProfile, currentUser }) => {
   const challengeData = [
     {
       name: "September Daily Medi",
@@ -71,9 +71,11 @@ const Challenges = ({ challenges, _id, profile, setProfile }) => {
     <>
       <Wrapper>
         <h2>Current challenges</h2>
-        <button onClick={() => setModal("flex")}>
-          <GrAddCircle size={"2.3em"} />
-        </button>
+        {currentUser._id === profile.user._id && (
+          <button onClick={() => setModal("flex")}>
+            <GrAddCircle size={"2.3em"} />
+          </button>
+        )}
         <ChallengeBox>
           {challenges.map((challenge, index) => {
             return (

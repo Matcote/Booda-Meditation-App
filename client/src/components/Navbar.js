@@ -12,7 +12,7 @@ const Navbar = () => {
       <NavLink to="/timer">
         <FiClock size={"2em"} />
       </NavLink>
-      <NavLink to="/profile">
+      <NavLink exact={true} to="/profile">
         <FiUser size={"2em"} />
       </NavLink>
     </Wrapper>
