@@ -4,7 +4,7 @@ import moment from "moment";
 import { FiThumbsUp, FiMessageSquare } from "react-icons/fi";
 import { useSelector, useDispatch } from "react-redux";
 import { likePost, unlikePost } from "../actions";
-import { useHistory } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
 
 const Post = ({ post }) => {
   const history = useHistory();
@@ -59,7 +59,9 @@ const Post = ({ post }) => {
     <Wrapper>
       <Header>
         <Avatar src={post.avatarSrc}></Avatar>
-        <h3>{post.name}</h3>
+        <Link to={`/profile/${post.user}`}>
+          <h3>{post.name}</h3>
+        </Link>
         <p>{moment(post.date).calendar()}</p>
         <span>
           <img

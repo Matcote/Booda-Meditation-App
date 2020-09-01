@@ -20,6 +20,9 @@ function App() {
         <Route exact path="/profile">
           <Profile />
         </Route>
+        <Route exact path="/profile/:_id">
+          <Profile />
+        </Route>
         <Route exact path="/login">
           <Login />
         </Route>
