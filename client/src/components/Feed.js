@@ -30,6 +30,7 @@ const Feed = () => {
         });
     }
   });
+  // eslint-disable-next-line
   const [{ x, y }, set] = useSpring(() => ({ x: 0, y: 0 }));
   let fetched = false;
   const bind = useDrag(({ down, movement: [mx, my] }) => {
