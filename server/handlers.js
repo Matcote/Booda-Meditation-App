@@ -82,15 +82,17 @@ const createUser = async (req, res) => {
 
 const addMeditation = async (req, res) => {
   const meditation = JSON.parse(req.body.meditation);
-  let fileType = req.file.mimetype.split("/")[1];
-  let newFileName = req.file.filename + "." + fileType;
-  fs.rename(
-    `./assets/uploads/${req.file.filename}`,
-    `./assets/uploads/${newFileName}`,
-    function () {
-      meditation.imgSrc = `./assets/uploads/${newFileName}`;
-    }
-  );
+  if (req.file !== undefined) {
+    let fileType = req.file.mimetype.split("/")[1];
+    let newFileName = req.file.filename + "." + fileType;
+    fs.rename(
+      `./assets/uploads/${req.file.filename}`,
+      `./assets/uploads/${newFileName}`,
+      function () {
+        meditation.imgSrc = `./assets/uploads/${newFileName}`;
+      }
+    );
+  }
 
   const _id = req.body._id;
   const client = await MongoClient(MONGO_URI, options);
