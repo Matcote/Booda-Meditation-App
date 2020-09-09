@@ -39,7 +39,6 @@ const SignUp = () => {
       })
         .then((res) => res.json())
         .then((data) => {
-          console.log(data);
           if (data.status === 201) {
             dispatch(logIn(data.data));
             history.push("/");
@@ -61,32 +60,33 @@ const SignUp = () => {
           <IoMdArrowRoundBack size={"2em"} />
         </Link>
         <Header>Let's get started</Header>
-        <Input>
-          {" "}
-          <input type="text" placeholder="Name" ref={nameRef} required />
-        </Input>
-        <Input>
-          {" "}
-          <input type="email" placeholder="Email" ref={emailRef} required />
-        </Input>
-        <Input>
-          <input
-            type="password"
-            placeholder="Password"
-            ref={passwordRef}
-            required
-          />
-        </Input>
-        <Input>
-          <input
-            type="password"
-            placeholder="Confirm password"
-            ref={confirmPasswordRef}
-            required
-          />
-        </Input>
-
-        <Button onClick={handleSignUp}>Continue</Button>
+        <form onSubmit={handleSignUp}>
+          <Input>
+            {" "}
+            <input type="text" placeholder="Name" ref={nameRef} required />
+          </Input>
+          <Input>
+            {" "}
+            <input type="email" placeholder="Email" ref={emailRef} required />
+          </Input>
+          <Input>
+            <input
+              type="password"
+              placeholder="Password"
+              ref={passwordRef}
+              required
+            />
+          </Input>
+          <Input>
+            <input
+              type="password"
+              placeholder="Confirm password"
+              ref={confirmPasswordRef}
+              required
+            />
+          </Input>
+          <Button type="submit">Continue</Button>
+        </form>
       </Wrapper>
       <Modal style={{ display: modal }} onClick={() => setModal("none")}>
         <div>
@@ -109,6 +109,9 @@ const Wrapper = styled.div`
   a {
     position: absolute;
     left: 15px;
+  }
+  form {
+    width: 100%;
   }
 `;
 
