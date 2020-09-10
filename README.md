@@ -1,68 +1,63 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Booda Meditation App
 
-## Available Scripts
+## Description
 
-In the project directory, you can run:
+Booda is a social media based around meditation. You can use the timer to time/record your session, and then upload a comment and/or image along with it if you wish. There is also a Home/Feed page where you can see all of the people you follow's meditation sessions, give them a thumbs up, and comment on their post. Finally, there is a profile page where you can see your total stats, along with graphs, achievements, and monthly challenges you can participate in. See below for previews of all of this and more!
 
-### `yarn start`
+The front end was built using React.js. The back end was built using Node.js, using MongoDB as the database. Although this app was built using React for the web, it was made with mobile in mind. I intend to learn a mobile language in the near future and re-create this app for real, bigger and better.
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Demo
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+This app is live! Find it at https://booda-app.herokuapp.com
+Use the email 'test@test.com' and the password 'test' so that you can have the full experience. This user has a bunch of friends, posts and stats so that you may see all features of the app.
 
-### `yarn test`
+A video of me presenting the app can also be found here: https://www.youtube.com/watch?v=j0oqW3RD2DM
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Features
 
-### `yarn build`
+### Login
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+<img src='./assets/readme/login.png'>
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+The log-in page for the app.
+If you would like to log-in to test the app, use this login:
+email: test@test.com
+password: test
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Sign-up
 
-### `yarn eject`
+<img src='./assets/readme/signup.png'>
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+A sign-up page. All fields are required and passwords must match to create an account.
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### Feed
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+<img src='./assets/readme/feed.png'>
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+The feed! You can view all your friends' posts, give them a thumbs up, and comment if you so wish. You can also swipe up to refresh the feed!
 
-## Learn More
+<img src='./assets/readme/post.png'>
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### Timer
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+<img src='./assets/readme/timer.png'>
 
-### Code Splitting
+The timer for the app. You can drag the number up and down to adjust the time of the session. Once you click start, the time counts down until it is finished. A modal then pops up and you can add a comment and/or image.
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
+### Profile
 
-### Analyzing the Bundle Size
+<img src='./assets/readme/profile.gif'>
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
+On your profile (or your friends profile), you can see your stats, achievements, and your challenges that you are currently participating in (or join new ones!).
 
-### Making a Progressive Web App
+### Settings
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
+<img src='./assets/readme/settings.png'>
 
-### Advanced Configuration
+A small settings modal which pops up if you click the gear on the timer page.
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
+### Error
 
-### Deployment
+<img src='./assets/readme/error.png'>
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `yarn build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+An error modal which pops up in the case of any user error during login/sign-up.
